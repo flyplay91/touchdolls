@@ -1,0 +1,210 @@
+
+{% include 'nosto-element' with 'collectionpage-nosto-1' %}
+
+
+
+<!-- /templates/collection.liquid -->
+{% comment %}
+For more information on collection tags:
+- http://docs.shopify.com/themes/liquid-variables/collection
+{% endcomment %}
+
+
+{% paginate collection.products by 18 %}
+
+
+{% comment %}
+Use .grid--rev so that the collection tags appear below the products on mobile
+{% endcomment %}
+<div class="grid collection-width">
+<div class="grid collection_represant large--hide medium-down--hide">
+    <div class="grid grid__item mb">
+        <h1 class="section-header__title section-header__left deliano_hup_hiren">{{collection.title}}</h1>
+        <div class="grid__item">
+            {% if collection.title == 'All' %}
+            {% else  %}
+            <img src="{{ collection.image | img_url: 'master' }}" class="img-responsive" alt="{{collection.image}}">
+            {% endif %}
+            <p class="deleno_Hup_title"></p>
+            <div class="deleno-detail text-center">
+                {{collection.description}}
+            </div>
+        </div>
+    </div>
+</div>
+<div  class="grid__item large--one-whole text-center lefe-quarter">
+    {% include 'filter-menu' %}
+</div>
+<div class="grid__item large--one-whole text-center main-collection-tech">
+    {% comment %}
+    Different markup if a collection description exists
+    {% endcomment %}
+    {% if collection.description != blank %}
+    <header class="section-header">
+        <h1 class="section-header__title">Deleno dreshes</h1>
+        <div class="rte rte--header">
+            {{ collection.description }}
+        </div>
+    </header>
+    <div class="section-header">
+        <div class="section-header__right">
+            {% include 'collection-sorting' %}
+            {% if paginate.pages > 1 %}
+            <div class="pagination">
+                {{ paginate | default_pagination | replace: '&laquo; Previous', '&larr;' | replace: 'Next &raquo;', '&rarr;' }}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    {% else %}
+    <header class="section-header">
+        <div class="grid collection_represant medium-down--hide">
+            <div class="grid__item-m mb">
+                <h1 class="section-header__title section-header__left deliano_hup_hiren">{{collection.title}}</h1>
+              <ul>
+                <li>
+                  <ul class="view">
+                    <li><span>VIEW</span></li>
+                    <li>
+                      <select id="view-select">
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                      </select>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <ul class="size">
+                    <li><label>SIZE</label></li>
+                    <li>
+                      {% include 'collection-sorting' %}
+					</li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+        </div>
+        <!-- =============================origin sortby position=============================== -->
+    </header>
+    {% endif %}
+    {% comment %}
+    Use class grid-uniform to have evenly sized columns clear
+    each other properly at each breakpoint.
+    {% endcomment %}
+    <!--  ============================================Filter code=======================================  -->
+    <div id="filter-refine">
+        
+        <div class="grid-uniform product_pic_hup">
+            
+            {% comment %}
+            Loop through our products in the current collection.
+            See the snippet 'product-grid-item' for the layout.
+            {% endcomment %}
+            <ul class="collection-matrix">
+                {% for product in collection.products %}
+                <li id="product-{{ forloop.index | plus:paginate.current_offset }}" class="pro_adjust"> 
+                    {% include 'product-grid-item' %}
+                </li>
+                {% else %}
+                {% if collection.handle == 'all' and current_tags == '' %}
+                {% comment %}
+                Add default products to help with onboarding for collections/all only
+                {% endcomment %}
+                {% unless emptyState %}
+                {{ 'theme-onboarding.css' | global_asset_url | stylesheet_tag }}
+                {% assign emptyState = true %}
+                {% endunless %}
+                {% include 'onboarding-empty-collection' %}
+                {% else %}
+                {% comment %}
+                If collection exists but is empty, display message
+                {% endcomment %}
+                <div class="grid__item">
+                    <p class="123">{{ 'collections.general.no_matches' | t }}</p>
+                </div>
+                {% endif %}
+                {% endfor %}
+                {% if paginate.next %}
+                <li class="more"><a href="{{ paginate.next.url }}">Load More</a></li>
+                {% endif %}
+            </ul>
+            <div id="product-list-foot"></div>
+            {% comment %}
+            {% if paginate.pages > 1 %}
+            <div class="page_hup_tech text-center">
+                <div class="pagination rishihuptech ">
+                    {{ paginate | default_pagination | replace: '&laquo; Previous', '&larr;' | replace: 'Next &raquo;', '&rarr;' }}
+                </div>
+            </div>
+            {% endif %}
+            {% endcomment %}
+        </div>
+    </div>
+</div>
+{% endpaginate %}
+<style>
+    .currency-picker__wrapper {
+    margin-left: 20px;
+    position: relative;
+    top: 15px;
+    float: left;
+    }
+    .more{
+    width: 100%;
+    display: inline-blobk;
+    float: left;
+    text-align: center;
+    }
+</style>
+<script>
+    var pInfScrLoading = false;
+    var pInfScrDelay = 250;
+    function pInfScrExecute() {
+    pInfScrNode = $('.more').last();	
+    pInfScrURL = $('.more a').last().attr("href");
+    if(pInfScrNode.length > 0 && pInfScrNode.css('display') != 'none') {
+    $.ajax({
+    	type: 'GET',
+    	url: pInfScrURL,
+    	beforeSend: function() {
+    	  pInfScrLoading = true;
+    	  pInfScrNode.clone().empty().insertAfter(pInfScrNode).append('<img src=\"http://cdn.shopify.com/s/files/1/0068/2162/assets/loading.gif?105791\" />');
+    	  pInfScrNode.hide();
+    	},
+    	success: function(data1) {
+    		// remove loading feedback
+    		pInfScrNode.next().remove();
+    		pInfScrNode.remove();
+    		var filteredData = $(data1).find(".collection-matrix");
+    		filteredData.insertBefore( $("#product-list-foot") );					
+    		pInfScrLoading = false;
+    // 				$('li.singleproduct').setAllToMaxHeight();
+    		attachClickEvent();
+    	},
+    	dataType: "html"
+    });
+    
+    }
+    }
+    
+    function attachClickEvent(){
+    $('li.more a').click(function(event){
+    pInfScrExecute();
+    event.stopPropagation();
+    return false;
+    });
+    }
+    
+    $('.filter-group.has_mutliple_items').attr('data-content','▶');
+    
+    $('.filter-group.has_single_item').attr('data-content','▶');
+    
+    $('.sortby-before').attr('data-content','▶');
+    
+    
+    
+    
+</script>
+
+{% include 'nosto-element' with 'collectionpage-nosto-2' %}

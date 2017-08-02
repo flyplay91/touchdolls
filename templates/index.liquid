@@ -1,0 +1,249 @@
+
+{% if settings.home_slider != blank %}
+{% include 'home-slider' %}
+{% endif %}
+
+{% comment %}
+<div class="ll-i">
+  <div class="touch-banner grid">
+    <div class="grid__item large--one-quarter small-change medium--one-quarter ">
+      <a href="{{settings.imglink01}}">
+        <img src="{{'sec01.png'| asset_url}}">
+      </a>
+    </div>
+    <div class="grid__item large--one-quarter small-change medium--one-quarter">
+      <a href="{{settings.imglink02}}">
+        <img src="{{'sec02.png'| asset_url}}">
+      </a>
+    </div>
+    <div class="grid__item large--one-quarter small-change medium--one-quarter">
+      <a href="{{settings.imglink03}}">
+        <img src="{{'sec03.png'| asset_url}}"></a></div>
+    <div class="grid__item large--one-quarter small-change medium--one-quarter">
+      <a href="{{settings.imglink04}}">
+        <img src="{{'sec04.png'| asset_url}}"></a></div>
+  </div>
+</div>
+<div class="gird">
+ <div class="grid__item pd-0">
+    <div class="flexslider" id="rishimaincl">
+  <ul class="slides">
+   {% if settings.on1 %} <li>
+    <a href="{{settings.link1}}"><img src="{{'slide_1.jpg' | asset_url}}" alt="Slider Image Touch doll" /></a>
+      <p class="flex__text" style="background: {{settings.slidercolor1}} none repeat scroll 0 0; color: {{settings.slidertextcolor1}};">{{settings.stext1}}
+        <span><a href="{{settings.link1}}" style="background: {{settings.sliderbtncolor1}} none repeat scroll 0 0;color: {{settings.sliderbtntextcolor1}}">
+{{settings.btntext1}}</a></span></p>
+    </li>
+    {% endif %}
+   {% if settings.on2 %} <li>
+    <a href="{{settings.link2}}">  <img src="{{'slide_2.jpg' | asset_url}}"  alt="Slider Image Touch doll" /></a>
+      <p class="flex__text" style="background: {{settings.slidercolor2}} none repeat scroll 0 0; color: {{settings.slidertextcolor2}};">{{settings.stext2}}
+        <span><a href="{{settings.link2}}" style="background: {{settings.sliderbtncolor2}} none repeat scroll 0 0;color: {{settings.sliderbtntextcolor2}};">
+         
+          
+{{settings.btntext2}}</a></span></p>
+    </li>{% endif %}
+     {% if settings.on3 %} <li>
+    <a href="{{settings.link3}}"><img src="{{'slide_3.jpg' | asset_url}}"  alt="Slider Image Touch doll" /></a>
+      <p class="flex__text" style="background: {{settings.slidercolor3}} none repeat scroll 0 0; color: {{settings.slidertextcolor3}};">{{settings.stext3}}
+        <span><a href="{{settings.link3}}" style="background: {{settings.sliderbtncolor3}} none repeat scroll 0 0;color: {{settings.sliderbtncolor3}};">
+          
+{{settings.btntext3}}</a></span></p>
+    </li>{% endif %}
+   {% if settings.on4 %} <li>
+    <a href="{{settings.link4}}"> <img src="{{'slide_4.jpg' | asset_url}}"  alt="Slider Image Touch doll" /></a>
+    <p class="flex__text" style="background: {{settings.slidercolor4}} none repeat scroll 0 0; color: {{settings.slidertextcolor4}};">{{settings.stext4}}
+      <span><a href="{{settings.link4}}" style="background: {{settings.sliderbtncolor4}} none repeat scroll 0 0;color: {{settings.sliderbtncolor4}};">
+       
+{{settings.btntext4}}</a></span></p>
+    </li>{% endif %}
+    {% if settings.on5 %} <li>
+    <a href="{{settings.link5}}"> <img src="{{'slide_5.jpg' | asset_url}}"  alt="Slider Image Touch doll" /></a>
+      <p class="flex__text" style="background: {{settings.slidercolor5}} none repeat scroll 0 0; color: {{settings.slidertextcolor5}};">{{settings.stext5}}
+        <span><a href="{{settings.link5}}" style="background: {{settings.sliderbtncolor5}} none repeat scroll 0 0;color: {{settings.sliderbtncolor5}};">
+      
+{{settings.btntext5}}</a></span></p>
+    </li>{% endif %}
+  </ul>
+</div>
+  </div>
+</div>
+
+{% endcomment %}
+
+
+
+{% if settings.belowslider %}
+<div class="new_smim top-margin">
+  {% if settings.texting != blank %}<h2 class="text-center">{{settings.texting}}</h2>{% endif %}
+  <div class="homepage-image">
+    <div class="homepage-image-piece homepage-image-piece-left">
+      <a class="swiming" href="{{settings.btext1}}">
+        <img src="{{'bsimg1.png'| asset_url }}">
+        <p>{{settings.balt1}}</p>
+      </a>
+    </div>
+    <div class="homepage-image-piece homepage-image-piece-right">
+      <a class="swiming" href="{{settings.btext2}}">
+        <img src="{{'bsimg2.png'| asset_url }}">
+        <p>{{settings.balt2}}</p>
+      </a>
+    </div>
+    <div class="clear-fix"></div>
+  </div>
+  
+  <div class="homepage-image">
+    <div class="homepage-image-piece homepage-image-piece-left">
+      <a class="swiming" href="{{settings.btext3}}">
+        <img src="{{'bsimg3.png'| asset_url }}">
+        <p>{{settings.balt3}}</p>
+      </a>
+    </div>
+    <div class="homepage-image-piece homepage-image-piece-right">
+      <a class="swiming" href="{{settings.btext3}}">
+        <img src="{{'bsimg3.png'| asset_url }}">
+        <p>{{settings.balt3}}</p>
+      </a>
+    </div>
+	<div class="clear-fix"></div>
+  </div>
+</div>
+{% endif %}
+{% if settings.featureon %}
+<div class="wanted_slider"> 
+  <!-- Place somewhere in the <body> of your page -->
+  <h2 class="text-center">{{settings.feat1text}}</h2>
+  <div class="most_wanted">
+    <ul class="slides">
+     
+       {% for product in collections[settings.feat1].products limit:8  %}
+        {% assign current_variant = product.selected_or_first_available_variant %}
+      <li class="grid__item large--one-quarter medium--one-third swim-1">
+        <div class="grid-demo"> <a class="Collection_slide"  href="{{product.url}}"> <img src="{{ product.featured_image.src | img_url: 'grande' }}" alt="{{settings.feat1text1}}" /> </a>
+          <div class="grid-demo grid_tag hup_pro__name"> <span class="title">{{product.title}}</span> <span class="title_price">
+                <p class="old_price">{{ current_variant.compare_at_price | money }}</p>
+            <p>{{product.price | money}}</p>
+            </span>
+            <div class="button-row">
+              <div><a href="{{product.url}}" title="BUY NOW"></a>
+</div>
+            </div>
+          </div>
+        </div>
+      </li>
+      {% endfor %}
+      <!-- items mirrored twice, total of 12 -->
+    </ul>
+  </div>
+</div>
+{% endif %}
+<!---------------Deleno-Wanted Slider Over ---------------> 
+
+<!---------------Shoes Slider Start --------------->
+{% if settings.featureon2 %}
+<div class="shoes_wanted_slider Acc_is_shs"> 
+  <!-- Place somewhere in the <body> of your page -->
+  <div class="cell-nav"></div>
+  <h2 class="text-center">{{settings.feat1text2}}</h2>
+  <div class="wanted__shoes">
+    <ul class="slides">
+       {% for product in collections[settings.feat2].products limit:8  %}
+       {% assign current_variant = product.selected_or_first_available_variant %}
+      <li class="grid__item large--one-quarter medium--one-third swim-1">
+        <div class="grid-demo"> <a class="Collection_slide"  href="{{product.url}}"> <img src="{{ product.featured_image.src | img_url: 'grande' }}"  alt="{{settings.feat1text2}}"/> </a>
+          <div class="grid-demo grid_tag hup_pro__name"> <span class="title">{{product.title}}</span> <span class="title_price">
+            <p class="old_price">{{ current_variant.compare_at_price | money }}</p>
+            <p>{{product.price | money}}</p>
+            </span>
+            <div class="button-row">
+              <div><a href="#" title="BUY NOW"></a></div>
+            </div>
+          </div>
+        </div>
+      </li>
+      {% endfor %}
+      <!-- items mirrored twice, total of 12 -->
+    </ul>
+  </div>
+</div>
+{% endif %}
+<!--------------- Shos-Wanted Slider Over ---------------> 
+
+<!---------------Accesories Slider Start --------------->
+{% if settings.featureon3 %}
+<div class="Accesories_wanted_slider"> 
+  <!-- Place somewhere in the <body> of your page -->
+  <div class="cell-nav"></div>
+  <h2 class="text-center">{{settings.feat1text3}}</h2>
+  <div class="wanted__Accesories">
+    <ul class="slides">
+             {% for product in collections[settings.feat3].products limit:8  %}
+       {% assign current_variant = product.selected_or_first_available_variant %}
+      <li class="grid__item large--one-quarter medium--one-third swim-1">
+        <div class="grid-demo"> <a class="Collection_slide"  href="{{product.url}}"> <img src="{{ product.featured_image.src | img_url: 'grande' }}" alt="{{settings.feat1text1}}" /> </a>
+          <div class="grid-demo grid_tag hup_pro__name"> 
+            <span class="title">{{product.title}}</span>
+            <span class="title_price">
+              <p class="old_price">{{ current_variant.compare_at_price | money }}</p>
+              <p>{{product.price | money}}</p></span>
+            <div class="button-row">
+              <div><a href="{{product.url}}" title="BUY NOW"></a></div>
+            </div>
+          </div>
+        </div>
+      </li>
+      {% endfor %}
+
+      
+      <!-- items mirrored twice, total of 12 -->
+    </ul>
+  </div>
+</div>
+{% endif %}
+<!--------------- Accesories Slider Over --------------->
+{% comment %}
+{% if settings.onfeatcat %}
+<div class="popular_category ">
+  <div class="cell-nav"></div>
+  <h2 class="text-center">{{settings.cat4text}}</h2>
+  <div class="grid__item large--one-quarter medium--one-whole  swim-1"> <a href="{{settings.hup01}}" class="swiming Collection_slide" ><img alt="" src="{{ 'hup01.png' | asset_url }}">
+    <p>{{settings.hup01text}}</p>
+    </a> </div>
+  <div class="grid__item large--one-quarter medium--one-whole  swim-1"> <a href="{{settings.hup02}}" class="swiming Collection_slide" ><img alt="" src="{{ 'hup02.png' | asset_url }}">
+    <p>{{settings.hup02text}}</p>
+    </a> </div>
+  <div class="grid__item large--one-quarter medium--one-whole  swim-1"> <a href="{{settings.hup03}}" class="swiming Collection_slide"><img alt="" src="{{ 'hup03.png' | asset_url }}">
+    <p>{{settings.hup03text}}</p>
+    </a> </div>
+  <div class="grid__item large--one-quarter medium--one-whole  swim-1	"> <a href="{{settings.hup04}}"  class="swiming Collection_slide"><img alt="" src="{{ 'hup04.png' | asset_url }}">
+   <p>{{settings.hup04text}}</p>
+    </a> </div>
+</div>
+{% endif %}
+{% endcomment %}
+
+<div class="wrapper1">
+  <h2 class="text-center">shop our instagram #TOUCHDOLLS</h2>
+<div class="covet-pics-gallery" data-id="2776"></div>
+
+</div>
+
+
+{% if template == 'index' %}
+<style>
+.hup_nav {
+    background: none;
+    z-index: 99999;
+    position: relative;
+
+}
+</style>
+{% endif %}
+
+{% include 'nosto-element' with 'frontpage-nosto-1' %}
+
+{% include 'nosto-element' with 'frontpage-nosto-2' %}
+
+{% include 'nosto-element' with 'frontpage-nosto-3' %}
+
+{% include 'nosto-element' with 'frontpage-nosto-4' %}

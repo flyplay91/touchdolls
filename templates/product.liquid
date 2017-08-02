@@ -1,0 +1,565 @@
+<!-- /templates/product.liquid -->
+
+{% comment %}
+
+  Rich snippets (itemscope, itemtype, etc.) for products are a theme requirement,
+  and allow search engines to easily understand what the content is.
+
+  For more information on these Scheme.org tags, visit:
+    - http://schema.org/docs/gs.html
+
+{% endcomment %}
+<div itemscope itemtype="http://schema.org/Product">
+  <meta itemprop="url" content="{{ shop.url }}{{ product.url }}">
+  <meta itemprop="image" content="{{ product.featured_image.src | img_url: 'grande' }}">
+  {% comment %}
+  Get first variant, or deep linked one
+  {% endcomment %}
+  {% assign current_variant = product.selected_or_first_available_variant %}
+  
+  
+  <div class="h-pr-w">
+    <div class="product-single">
+      <h1 class="title-product-name large--hide medium-down--show" itemprop="name">{{ product.title }}</h1>
+      <div class="half text-center Hup_pro_Vertical">
+        <div class="Hup-working-tech">
+          <div class="product-single__photos  {% if product.images.size > 1 %} {% else %} nohupul {% endif %}" id="ProductPhoto">
+            <div class="top-up product-wrapper-mobile"> 
+              <ul id="product-images-slider">
+                {% assign main-count = 0 %}
+                {% for image in product.images %}
+                <li  data-slide-index="{% increment main-count %}" data-product-id="{{product.id}}">
+                  <img class="td_logo" src="//cdn.shopify.com/s/files/1/1063/9730/t/21/assets/td-logo.png?8939257554587934733">
+                  <img class="product_main_img" src="{{ image.src | img_url: '1024x1024' }}" alt="{{ image.alt | escape }}" data-zoom-image="{{ image.src | img_url: '1024x1024' }}">
+                </li>
+                {% endfor %}                
+              </ul>
+              
+              {% assign featured_image = current_variant.featured_image | default: product.featured_image %}
+              {% comment %} <img  src="{{ featured_image | img_url: 'large' }}" alt="{{ featured_image.alt | escape }}" id="ProductPhotoImg"> {% endcomment %} 
+            </div>
+            <div class="top-up product-wrapper-desktop">
+                <img class="td_logo" src="//cdn.shopify.com/s/files/1/1063/9730/t/21/assets/td-logo.png?8939257554587934733">
+                <img id="productPhotoImg" src="{{ product.images[0].src | img_url: '1024x1024' }}" alt="{{ product.images[0].alt | escape }}" data-zoom-image="{{ product.images[0].src | img_url: '1024x1024' }}">
+            </div>
+            <div class="social-text-slider"> <div class="addthis_inline_share_toolbox"></div> {% include 'social-sharing' %} </div>
+            <div class="hash"> <span>#IAMATOUCHDOLL</span><p style="font-size:12px">Tag Your Photos on Instagram For a Chance to WIN $200</p></div>
+          </div>
+          {% if product.images.size > 4 %} <span id="prev"><img src="https://cdn.shopify.com/s/files/1/1063/9730/files/up-arrow.png?9302112942176839381"></span> {% endif %}
+          
+          
+          {% comment %}
+          Create thumbnails if we have more than one product image
+          {% endcomment %}
+          
+          
+          {% if product.images.size > 1 %}
+          <ul class="product-carousel-wrapper product-single__thumbnails grid-uniform rishihuptech-s {% if product.images.size > 4 %} {% else %}huptechno{% endif %}  " id="ProductThumbs-">
+            {% assign count = 0 %}
+            {% for image in product.images %}
+            <li class="grid__item Hup_vertical_hiren"> <a href="{{ image.src | img_url: 'large' }}"   data-slide-index="{% increment count %}" data-shop="{{ image.src | img_url: 'master' }}"  class="product-single__thumbnail hup_get_img"> <img src="{{ image.src | img_url: '1024x1024' }}" alt="{{ image.alt | escape }}"> </a> </li>
+            {% capture risk%}{{ image.src | img_url: 'master' }}{% endcapture  %}
+            {%  if rishi123  ==  risk %}
+            
+            {% else %} <a style="" class="single_image" href="{{ image.src | img_url: 'master' }}" rel="group1" ></a> {%  endif  %}
+            {% endfor %}
+          </ul>
+          {% endif %}
+          {% if product.images.size > 4 %} <span id="next"><img src="https://cdn.shopify.com/s/files/1/1063/9730/files/down-arrow.png?7245764902666702186"></span> {% endif %} </div>
+        
+      </div>
+      <div class="-half main-title-detail">
+      <h1 class="title-product-name" itemprop="name">{{ product.title }}</h1>
+      
+      <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+      <meta itemprop="priceCurrency" content="{{ shop.currency }}">
+      <link itemprop="availability" href="http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}">
+      {% comment %}
+      ID addToCartForm is a selector for the ajax cart plugin
+      {% endcomment %}
+      <form action="/cart/add" method="post" enctype="multipart/form-data" id="AddToCartForm" class="form-vertical">
+        {% comment %}
+        Add product variants as a dropdown.
+        - By default, each variant (or combination of variants) will display as its own
+        <option> - To separate these into multiple steps, which we suggest, use option_selection.js (see below)
+        
+        You can leverage jQuery to add a callback on page load and each time the select element changes:
+        - Include option_selection.js (as seen at the bottom of this file)
+        - This allows you to use JavaScript anytime the variant dropdown changes
+        - This also separates out your variant options (ie. size, color, etc.) to separate select elements
+        
+        For more information on products with multiple options, visit:
+        - http://docs.shopify.com/support/your-website/themes/can-i-make-my-theme-use-products-with-multiple-options#update-product-liquid
+        {% endcomment %} 
+        
+           <span class="visually-hidden">{{ 'products.general.regular_price' | t }}</span>
+          <div class="only-its  {% if product.compare_at_price_max > product.price %} rishisale {% endif %}">
+            <div class="product-rate-hup">
+              <span id="ProductPrice" class="h2" itemprop="price" content="{{ current_variant.price | divided_by: 100 }}"> {{ current_variant.price | money }} </span>
+              <p id="ComparePrice" style="text-decoration: line-through !important;"> {{ current_variant.compare_at_price | money }} </p>
+            </div>
+            {% if product.compare_at_price_max > product.price %} <span class="visually-hidden">{{ 'products.general.sale_price' | t }}</span> {% endif %}
+            
+          </div>
+          
+          <div class="tab_content">  {{product.description}} </div>
+          
+          <div class="new-tabs">
+            <ul class="nav nav-tabs block" id="productTabsNav">
+<!--               <li class="active">
+                <a data-toggle="tab" data-href="#tab1">	DESCRIPTION</a>
+              </li> -->
+              <li class="">
+                <a data-toggle="tab" data-href="#tab2">RETURN POLICY </a>
+              </li>
+			</ul>
+
+            <div id="product_tab_content">
+              <div id="tab1" class="tab-pane active">
+                
+              </div>
+              <div id="tab2" class="tab-pane">
+                <div class="tab_content">
+                  <p>No returns are given for online purchases.</p> 
+                  <p>-Exchanges can be made for another item/s, and always the option to receive a store credit in accordance with the below terms.</p>
+                  <p>-Exchanges are only granted when return postmark is no more than 7 calendar days after the package was delivered</p>
+                  <p>-To exchange simply send back the item/s within 7 calendar days after the item has been delivered</p>
+                  <p>-Out of stock items will be refunded through your original payment method.</p>
+                  <p>-When the returned item is received, the new item will be shipped</p>
+
+                  • Merchandise must have original tags attached, be unwashed, unworn, and without damages<br>
+                  • Return shipping labels are not provided, except defective item/s<br>
+                  • If original order received free shipping, a shipping charge will be incurred on the exchanged items and the invoice will be sent to you via email prior to shipment from our location (excluding those who paid for shippping)<br><br>
+                  <p>***Any packages returned without an exchange request will be denied, and will prolong the exchange process***</p><br>
+                  <p><strong><u>FINAL SALE</u></strong><br />
+                    * Jewelry, Panties, Skivvies, Body Suites, Bag, Shoes, Scarves and Swimwear<br />
+                    * Clearance, Last Call, Sale Event Items and Accessories<br />
+                    <br />
+                    <strong><u>STORE CREDIT</u></strong><br />
+                    * Not redeemable for cash nor transferable<br />
+                    * There will be no replaced if lost or stolen<br />
+                    * Cannot issue a cash refund in exchange for a store credit</p>
+                  <p><strong><u>ADDITIONAL INFORMATION</u></strong><br />
+                    *Notification must be made within 48 hours after the delivery of your package if there are any manufacturer defects and/or an item was received broken.<br />
+                    *Online Store Credit can be used for Online Shopping only.</p><br />
+
+                  <strong>SEND RETURNS TO:</strong> <br />
+                  Touchdolls Boutique<br />
+                  7231 Biscayne Blvd.<br />
+                  Miami, FL 33138
+                </div>
+              </div>
+
+            </div>
+          </div>
+       
+          <div class="select_hup_product">
+            <select name="id" id="productSelect" class="product-single__variants">
+
+				{% for variant in product.variants %}
+              		{% if variant.available %}
+
+              		{% comment %}
+              		Note: if you use option_selection.js, your 
+
+              		<select>
+
+                	tag will be overwritten, meaning what you have inside 
+
+                		<option> will not reflect what you coded below.
+                  		{% endcomment %}
+                		<option {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} data-sku="{{ variant.sku }}" value="{{ variant.id }}">
+                  			{{ variant.title }} - {{ variant.price | money_with_currency }}
+                        </option>
+
+						{% else %}
+							<option disabled="disabled"> {{ variant.title }} - {{ 'products.product.sold_out' | t }} </option>
+						{% endif %}
+                {% endfor %}
+
+
+              </select>
+              {% if product.available and product.variants.size > 1 %}
+              	{% if product.options contains 'Color' %}
+
+              		{% if product.options contains 'Size' %}
+              			{% include 'swatch' with 'Size' %}
+              		{% else %}
+              			{% include 'swatch' with 'Color' %}
+              		{% endif %}
+              	{% elsif product.options contains 'Size' %}
+              		{% if product.options contains 'Size' %}
+              			{% include 'swatch' with 'Size' %}
+              		{% else %}
+              			{% include 'swatch' %}
+              		{% endif %}
+              	{% else %}
+              		{% if product.options contains 'Title' %}
+              			{% include 'swatch' with 'Title' %}
+              		{% else %}
+              			{% include 'swatch' %}
+              		{% endif %}
+              	{% endif %}	
+              {% endif %}
+
+            </select>
+          </div>
+          
+        <div class="helpers"> 
+          <span class="size-chart-link clearfix"> 
+            <a href="javascript:void(0)" class="helper-right js-size-chart">
+          <button type="button" class="btn btn-info btn-lg size_chart_toggle" data-toggle="modal" data-target="#myModals">
+            <a class="size-chart">Size Chart</a>
+           </button>
+			</a>
+          </span>
+          </div>
+<!-- Modal -->
+        {% include 'sizemodel' %}
+       
+        <div class="order-time">
+          <p>Order now and we will ship your order within 24-48 hours. (Except Deliano Exclusive Products)</p>
+          <button type="submit" name="add" id="AddToCart" class="btn"> <span id="AddToCartText1">ADD TO TOUCH TOTE</span><span class="icon icon-cart"></span> </button>
+        </div>
+       
+       {% include 'wishl-wishlist' %} 
+      </form>
+        
+        <div class="tabs">
+          <ul>
+            <li><a href="#details">DETAILS</a></li>
+            <li><a href="#share">SHARE</a></li>
+          </ul>
+        </div>
+        
+        <div class="tab-content">
+          <div id="tab-details"></div>
+          <div id="tab-share">
+            <ul>
+              <li>
+                <a href="">
+                  <i></i>
+                </a>
+              </li>
+              <li>
+                <a href="">
+                  <i></i>
+                </a>
+              </li>
+              <li>
+                <a href="">
+                  <i></i>
+                </a>
+              </li>
+              <li>
+                <a href="">
+                  <i></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+    </div>
+  </div>
+  {% comment %}
+  If the user is on a collection product page (ie with /collections/collection-handle/products/product-handle)
+  in the URL, we can show next/previous links to other products in the collection.
+  {% endcomment %} </div>
+</div>
+{% include 'rel-products' %}
+ <form id="fx-view" method="post" action="/cart/add">
+    <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
+    <input type="submit" value="Add to Shopping Bag" class="btn btn-danger" id="add-to-cart-button"  />
+  </form>  
+      
+{{ 'option_selection.js' | shopify_asset_url | script_tag }} 
+<script>
+  var selectCallback = function(variant, selector) {
+    var $featuredImage = $('#productPhotoImg');
+    
+    timber.productPage({
+      money_format: "{{ shop.money_format }}",
+      variant: variant,
+      selector: selector
+    });
+    
+    if (variant) {
+      var form = jQuery('#' + selector.domIdPrefix).closest('form');
+      for (var i=0,length=variant.options.length; i<length; i++) {
+        var radioButton = form.find('.swatch[data-option-index="' + i + '"] :radio[value="' + variant.options[i] +'"]');
+        if (radioButton.size()) {
+          radioButton.get(0).checked = true;
+        }
+      }
+      
+      // Update variant image, if one is set
+      // Call timber.switchImage function in shop.js
+      if (variant.featured_image) {
+        var newImg = variant.featured_image,
+            el = $featuredImage[0];
+        $(function() {
+          Shopify.Image.switchImage(newImg, el, timber.switchImage);
+          window.current_product_img = newImg;
+
+          $("#ProductPhoto .product-wrapper-mobile li img.product_main_img").each(function(){
+            var _this = this;
+            var slide_idx = 0;
+            var src = $(this).attr("src").toLowerCase().split('products/')[1].split('_1024')[0];
+            var activeSrc = window.current_product_img.src.toLowerCase().split('products/')[1].split('.jpg')[0];
+
+            if (src == activeSrc) {
+              slide_idx = $(_this).closest('li').data('slideIndex');
+              window.bx_slider.goToSlide(slide_idx);
+              return false;
+            }
+          });
+        });
+      }
+    }
+    
+  };
+
+  jQuery(function($) {
+    new Shopify.OptionSelectors('productSelect', {
+      product: {{ product | json }},
+      onVariantSelected: selectCallback,
+      enableHistoryState: true
+    });
+
+    // Add label if only one product option and it isn't 'Title'. Could be 'Size'.
+    {% if product.options.size == 1 and product.options.first != 'Title' %}
+      $('.selector-wrapper:eq(0)').prepend('<label for="productSelect-option-0">{{ product.options.first | escape }}</label>');
+    {% endif %}
+
+    // Hide selectors if we only have 1 variant and its title contains 'Default'.
+    {% if product.variants.size == 1 and product.variants.first.title contains 'Default' %}
+      $('.selector-wrapper').hide();
+    {% endif %}
+  });
+  
+  
+  
+</script> 
+{% include 'webyze-swatches' %}
+<style>
+  th {
+  color: hsl(0, 0%, 0%) !important;
+}
+  td {
+  color: hsl(0, 0%, 0%) !important;
+}
+  th, td {
+  border: 1px solid #ececec;
+  padding: 15px;
+  text-align:center;
+}
+  .rte {
+  clear: both;
+  display: inline-block;
+  margin-bottom: 40px;
+}
+  tr:nth-child(2n) {
+  background: #bababa none repeat scroll 0 0;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  min-width: 100%;
+}
+.ui-tabs.ui-tabs-vertical {
+    padding: 0;
+    width: 100%;
+}
+.ui-tabs.ui-tabs-vertical .ui-widget-header {
+    border: none;
+}
+.ui-tabs.ui-tabs-vertical .ui-tabs-nav {
+    float: left;
+    width: 10em;
+    border-radius: 4px 0 0 4px;
+}
+.ui-tabs.ui-tabs-vertical .ui-tabs-nav li {
+  border: 1px solid !important;
+  border-radius: 30px 0 0 30px;
+  clear: left;
+  margin: 0.2em 0;
+  overflow: hidden;
+  position: relative;
+  right: -2px;
+  width: 100%;
+  z-index: 2;
+}
+ .ui-tabs-active .ui-tabs-anchor {
+  color: #fff !important;
+}
+.ui-tabs.ui-tabs-vertical .ui-tabs-nav li a {
+  color: #000;
+  display: block;
+  padding: 0.6em 1em;
+  width: 100%;
+}
+.ui-tabs.ui-tabs-vertical .ui-tabs-nav li a:hover {
+    cursor: pointer;
+}
+.ui-tabs.ui-tabs-vertical .ui-tabs-nav li.ui-tabs-active {
+    margin-bottom: 0.2em;
+    padding-bottom: 0;
+    border-right: 1px solid white;
+    background: #000 none repeat scroll 0 0;
+    border-radius:30px 0 0 30px;
+}
+.ui-tabs.ui-tabs-vertical .ui-tabs-nav li:last-child {
+    margin-bottom: 10px;
+}
+.ui-tabs.ui-tabs-vertical .ui-tabs-panel {
+  border: 1px solid #000;
+  border-radius: 0;
+  float: left;
+  left: 3%;
+  padding: 15px;
+  position: relative;
+  width: 60em;
+}
+  .figur {
+  width: 150px;
+}
+  .hips_figur {
+  width: 150px;
+}
+@import "compass/css3";
+
+// More practical CSS...
+// using mobile first method (IE8,7 requires respond.js polyfill https://github.com/scottjehl/Respond)
+
+$breakpoint-alpha: 480px; // adjust to your needs
+
+.rwd-table {
+  margin: 1em 0;
+  min-width: 300px; // adjust to your needs
+  
+  tr {
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  th {
+    display: none; // for accessibility, use a visually hidden method here instead! Thanks, reddit!   
+  }
+  
+  td {
+    display: block; 
+    
+    &:first-child {
+      padding-top: .5em;
+    }
+    &:last-child {
+      padding-bottom: .5em;
+    }
+
+    &:before {
+      content: attr(data-th)": "; // who knew you could do this? The internet, that's who.
+      font-weight: bold;
+
+      // optional stuff to make it look nicer
+      width: 6.5em; // magic number :( adjust according to your own content
+      display: inline-block;
+      // end options
+      
+      @media (min-width: $breakpoint-alpha) {
+        display: none;
+      }
+    }
+  }
+  
+  th, td {
+    text-align: left;
+    
+    @media (min-width: $breakpoint-alpha) {
+      display: table-cell;
+      padding: .25em .5em;
+      
+      &:first-child {
+        padding-left: 0;
+      }
+      
+      &:last-child {
+        padding-right: 0;
+      }
+    }
+
+  }
+  
+  
+}
+
+
+// presentational styling
+
+@import 'http://fonts.googleapis.com/css?family=Montserrat:300,400,700';
+
+body {
+  padding: 0 2em;
+  font-family: Montserrat, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  color: #444;
+  background: #eee;
+}
+
+h1 {
+  font-weight: normal;
+  letter-spacing: -1px;
+  color: #34495E;
+}
+
+.rwd-table {
+  background: #34495E;
+  color: #fff;
+  border-radius: .4em;
+  overflow: hidden;
+  tr {
+    border-color: lighten(#34495E, 10%);
+  }
+  th, td {
+    margin: .5em 1em;
+    @media (min-width: $breakpoint-alpha) { 
+      padding: 1em !important; 
+    }
+  }
+  th, td:before {
+    color: #dd5;
+  }
+}
+/*  Responsive  */
+ 
+ 
+
+</style>
+  
+  <script>
+    $('.size_chart_toggle').click(function(){
+    
+    $('.zoomWindowContainer').css('opacity', '0');
+    $('.zoomLens').css('opacity', '0');
+    });
+    
+    $('button.close').click(function(){
+    
+    $('.zoomWindowContainer').css('opacity', 'inherit');
+    $('.zoomLens').css('opacity', '0.4');
+    });
+    
+    
+    $(document).click(function (e) {
+      if (!$(e.target).closest('.size_chart_toggle, .modal-content').length) {
+        if ($('body').hasClass('modal-open')) {
+
+          $('.zoomWindowContainer').css('opacity', 'inherit');
+          $('.zoomLens').css('opacity', '0.4');
+        }
+      }
+    });
+    
+    $('li.Hup_vertical_hiren').css({'display': 'inline-block', 'width': '49%'});
+    
+  </script>

@@ -1,0 +1,49 @@
+<script type="text/javascript">
+spentlyForm = $("form[action='/cart']"), spentlyForm2 = $("form[action='/cart/add']"), productArray = [], cartItems = [], handles = "";
+ if(spentlyForm.length > 0){spentlyForm2 = spentlyForm }
+</script>{%capture handles %}{% for line_item in cart.items %}{{ line_item.product.handle | strip | join: ','}}{%endfor%}{%endcapture%}
+{% assign collection_titles = collections | map: 'handle' %}{% for product in collection.products %}{% capture length %}{{ forloop.length }}{% endcapture %}{% endfor %}
+{% for product in collections["all"].products %}{% if handles contains product.handle %}{% assign isLineItem = true %}{%endif%}
+{% if handles contains product.handle %}{%assign isLineItem = true %}{%elsif product.available == true %}
+{%capture desc %}{{ product.description | strip | strip_newlines | strip_html}}{% endcapture %}
+{% capture img %}{{ product.featured_image | product_img_url: 'medium' }}{%endcapture%}
+{% capture handlerr %}{{ product.handle | handleize}}{%endcapture%}
+{% capture urlimg %}{{ product.url | strip | html_escape }}{%endcapture%}
+{% capture ptitle %}{{ product.title | escape | strip }}{%endcapture%}
+<script type="text/javascript">
+productArray.push({
+handle: "{{ handlerr | strip | handilize }}",
+title: "{{ ptitle | strip }}",
+featured_image: "{{ img | url_param_escape }}",
+url: "{{ urlimg | strip | url_escape }}"});
+</script>{%endif%}{% endfor %}
+<script type="text/javascript">
+if(productArray.length == 1){
+var maxIndex = productArray.length -1;
+var prod1 = productArray[maxIndex];
+prods = [prod1];}
+else{
+var maxIndex = productArray.length - 1,
+itmIndex = Math.floor(Math.random() * maxIndex),
+itm2Index = Math.floor(Math.random() * maxIndex);
+ if(itm2Index === itmIndex || ((productArray[itm2Index].handle) == (productArray[itmIndex].handle))){ if(itmIndex == 0){itm2Index = itm2Index + 1;}else {itm2Index = itm2Index -1};}
+var prod1 = productArray[itmIndex];
+var prod2 = productArray[itm2Index];
+if(prod1.handle == prod2.handle){ var isDifferent = false; 
+ while(isDifferent == false){ prod1 = productArray[(Math.floor(Math.random() * maxIndex))];
+if(prod1.handle != prod2.handle){ isDifferent=true;}}}
+prods = [prod1, prod2];
+  }
+inputProd = "";
+for (var prod = prods[1], i = 1; 2 >= i; i++) {
+var prodName = "prod" + i,
+prodObj = prods[i - 1];
+  if(prodObj == undefined){ } else {
+console.log("prod obj " + prodObj);
+for (var property in prodObj) prodObj.hasOwnProperty(property) && (inputProd += "<input type='hidden' name='attributes[" + prodName + "-" + property + "]' id='" + prodName + "-" + property + "' value='" + prodObj[property] + "'></input>")}}
+spentlyForm2.append(inputProd), $(document).ready(function () {
+var r = $("form[action='/cart']");
+void 0 != r && r.submit(function () { console.log("e"), jQuery.post("/cart/update.js", spentlyForm2.serialize())
+})
+});
+</script>

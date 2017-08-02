@@ -1,0 +1,43 @@
+{% assign number_of_related_products_to_show = 8 %}
+{% assign heading = 'Related Products' %}
+{% assign number_of_related_products_to_fetch = number_of_related_products_to_show | plus: 1 %}
+ 
+{% if collection == null or collection.handle == 'frontpage' or collection.handle == 'all' %}
+{% assign found_a_collection = false %}
+{% for c in product.collections %}
+	{% if found_a_collection == false and c.handle != 'frontpage' and c.handle != 'all' and c.all_products_count > 1 %}
+		{% assign found_a_collection = true %}
+		{% assign collection = c %}
+	{% endif %}
+{% endfor %}
+{% endif %}
+ 
+{% if collection and collection.products_count > 1 %}
+	<div class="amazing_price">
+ 	<div class="rel-title-price">
+		<h2 class="text-center">TAKE A LOOK OF THESE AMAZING PIECES</h2>
+    </div>
+  <div class="most_wanted">
+    <ul class="slides">
+	{% assign current_product = product %}
+	{% assign current_product_found = false %}
+		{% for product in collection.products limit: number_of_related_products_to_fetch %}
+			{% if product.handle == current_product.handle %}
+				{% assign current_product_found = true %}
+			{% else %}
+			{% unless current_product_found == false and forloop.last %}
+	 <li class="grid__item large--one-quarter medium--one-third swim-1">
+        <div class="grid-demo"> <a class="Collection_slide"  href="{{product.url}}"> <img src="{{ product.featured_image.src | img_url: 'grande' }}"  /> </a>
+          <div class="grid-demo grid_tag hup_pro__name"> <span class="title">{{product.title}}</span> <span class="title_price">
+            <p>{{product.price | money}}</p>
+            </span>
+          </div>
+        </div>
+      </li>		
+     		{% endunless %}
+			{% endif %}
+		{% endfor %}
+	 </ul>
+  </div>
+</div>
+{% endif %}

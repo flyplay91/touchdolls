@@ -1,0 +1,264 @@
+<!-- /snippets/product-grid-item.liquid -->
+{% comment %}
+This snippet is used to showcase each product during the loop,
+'for product in collection.products' in collection.liquid.
+A liquid variable (grid_item_width) is set just before the this
+snippet is included to change the size of the container.
+Once the variable is set on a page, all future instances of this
+snippet will use that width. Overwrite the variable to adjust this.
+Example
+- assign grid_item_width = 'large--one-quarter medium--one-half'
+{% endcomment %}
+{% comment %}
+Set the default grid_item_width if no variable is set
+{% endcomment %}
+{% unless grid_item_width %}
+{% assign grid_item_width = 'large--one-third medium--one-half' %}
+{% endunless %}
+{% comment %}
+Check if the product is on sale and set a variable to be used below.
+{% endcomment %}
+{% assign on_sale = false %}
+{% if product.compare_at_price > product.price %}
+{% assign on_sale = true %}
+{% endif %}
+{% comment %}
+Check if the product is sold out and set a variable to be used below.
+{% endcomment %}
+{% assign sold_out = true %}
+{% if product.available %}
+{% assign sold_out = false %}
+{% endif %}
+<div class="Collection_hup_hiren">
+    <div class="mrge_on product-item-inside">
+      <div class="mrge_on_relative">
+          <a href="{{ product.url | within: collection }}" class="grid__image collection_hup__product">
+              <img class="logo_relative featured-image" src="{{ product.featured_image.src | img_url: '1024x1024' }}" alt="{{ product.featured_image.alt | escape }}">
+              {% if sold_out %}     
+                  <span class="soldout-hup">SOLD <br> OUT</span>
+                  <img class="soldout-image" src="//cdn.shopify.com/s/files/1/1063/9730/t/21/assets/notify-me-image.jpg?960652975479252471">
+              {% else %}
+              {% if on_sale %}
+                  <span class="sale_hup">SALE</span>
+              {% endif %} 
+              {% endif %}
+              <div class="komalhoverhup">
+                  {% if product.images.size > 1 %}
+                      {% for image in product.images limit:2%}
+                          {% if forloop.index == 2 %}
+                              <img src="{{ image.src | img_url: '1024x1024' }}" alt="{{ image.alt | escape }}">
+                          {% endif %}
+                      {% endfor %}
+                  {% endif %}
+              </div>
+			</a>
+		</div>
+          
+      
+        
+        
+      
+        <div class="grid-demo grid_tag hup_pro__name text-center">
+            <p class="h6 title">
+                <a href="{{ product.url | within: collection }}">{{ product.title }}</a>
+            </p>
+            <p class="title_price">
+                {% if on_sale %}
+                {% if product.price_varies %}
+                {% assign sale_price = product.price | money %}
+                {{sale_price}}
+                {% else %}
+                {{ product.price | money }}
+                {% endif %}
+                {% else %}
+                {% if product.price_varies %}
+                {% assign price = product.price | money %}
+                {{ 'products.general.from_text_html' | t: price: price }}
+                {% else %}
+                {{ product.price | money }}
+                {% endif %}
+                {% endif %}
+                {% if on_sale %}
+                <span class="visually-hidden">{{ 'products.general.regular_price' | t }}</span>
+                <s>{{ product.compare_at_price | money }}</s>
+                {% endif %}
+            </p>
+            {% comment %}
+            <div class="button-row">
+                <div><a href="{{product.url}}" title="BUY NOW"></a>
+                </div>
+            </div>
+            {% endcomment %}
+        </div>
+      
+        <!-- Color Swatch -->
+        {% assign has_color = false %}
+        {% assign index_color = 0 %}
+        {% for option in product.options %}
+        {% capture downcased_option %}{{ option | downcase }}{% endcapture %}
+        {% if downcased_option contains 'color' %}
+        {% assign has_color = true %}
+        {% assign index_color = forloop.index0 %}
+        {% endif %}
+        {% endfor %}
+
+        {% if has_color %}
+        {% assign colors_count = 0 %}
+        <ul class="color-swatch  hidden-x">
+          {% assign colors = '' %}
+          {% for variant in product.variants %}
+          {% capture color %}{{ variant.options[index_color] }}{% endcapture %}
+          {% capture wrapped_color %},{{ color }},{% endcapture %}
+          {% unless colors contains wrapped_color %}
+          {% assign colors_count = colors_count | plus: 1 %}
+          {% if colors_count < 9 %}
+          <input type="hidden" value="{{variant.image.src}}">
+          <li> <a data-image="{% if variant.image.src %}{{ variant.image.src |  img_url: '1024x1024'  }}{% else %}{{'no-image.jpg' | asset_url}}{% endif %}" href="#" data-tooltip="{{ color }}">
+            <img src="{{ color | handle | prepend: 'color-' | append: '.png' | file_url | downcase }}" alt="">
+            </a></li>
+          {% endif %}
+          {% capture colors %}{{ colors }}{{ wrapped_color }}{% endcapture %}
+          {% endunless %}
+          {% endfor %}
+        </ul>
+        <!-- /Color Swatch -->
+        {% endif %}		
+      
+          <div class="swatch-color select_hup_product hide">
+            <select name="id" id="productSelect" class="product-single__variants">
+
+              {% for variant in product.variants %}
+              {% if variant.available %}
+
+              {% comment %}
+              Note: if you use option_selection.js, your 
+
+              <select>
+
+                tag will be overwritten, meaning what you have inside 
+
+                <option> will not reflect what you coded below.
+                  {% endcomment %}
+                <option {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} data-sku="{{ variant.sku }}" value="{{ variant.id }}">
+                  {{ variant.title }} - {{ variant.price | money_with_currency }}
+                </option>
+
+                {% else %}
+                <option disabled="disabled"> {{ variant.title }} - {{ 'products.product.sold_out' | t }} </option>
+                {% endif %}
+                {% endfor %}
+
+
+              </select>
+              {% if product.available and product.variants.size > 1 %}
+              {% if product.options contains 'Color' %}
+              {% include 'swatch' with 'Color' %}
+              {% endif %}	
+              {% endif %}
+
+            </select>
+          </div>
+      
+    	</div>
+  
+  
+        <!--=========== Popup & Newsletter ========================================-->
+      <div class="popup" data-popup="popup-1">
+        <div class="popup-inner">
+          <h2>GET ON THE LIST!</h2>
+          <p>Please enter your email below to be notified if this product comes back in stock!</p>
+          <div class="notify_form notify-form-{{ product.id }}" id="notify-form-{{ product.id }}" {% if product.available %}{% endif %}>
+            <p class="message"></p>
+            {% form 'contact' %}
+            {% if form.posted_successfully? %}
+            <p><em>{{ 'products.notify_form.post_success' | t }}</em></p>
+            {% elsif form.errors %}
+            <p><em>{{ 'products.notify_form.post_error' | t }}</em></p>
+            {% else %}
+            <p class="notify-container">
+              <label for="contact[email]">{{ 'products.notify_form.description' | t }}:</label>
+              {% if customer %}
+              <input type="hidden" name="contact[email]" class="notify_email" value="{{ customer.email }}" />
+              {% else %}
+              <input required type="email" class="notify_email" name="contact[email]" id="contact[email]" placeholder="{{ 'products.notify_form.email' | t }}" value="{{ contact.fields.email }}" />
+              {% endif %}
+              <input type="hidden" name="contact[body]" class="notify_form_message" data-body="{{ 'products.notify_form.message_content' | t: product: product.title, url: canonical_url }}" value="{{ 'products.notify_form.message_content' | t: product: product.title, url: canonical_url }}" />
+              <input class="action_button" type="submit" value="{{ 'products.notify_form.send' | t }}" style="margin-bottom:0px" />    
+            </p>
+            {% endif %}
+            {% endform %}
+          </div>
+          <a class="popup-close" data-popup-close="popup-1" href="#">x</a>
+        </div>
+      </div>
+</div>
+
+
+<script>
+    $(document).ready(function() {
+       {% if page_title == "Coming Soon" %} 
+        var html = '<a href="#" class="newsletter" data-popup-open="popup-1">GET ON THE LIST!</a>';
+         $('img.logo_relative').after(html);
+       {% endif %}
+    });
+    
+</script>
+<script>
+    $(function() {
+      //----- OPEN
+      $('[data-popup-open]').on('click', function(e)  {
+          var targeted_popup_class = jQuery(this).attr('data-popup-open');
+          $('[data-popup="' + targeted_popup_class + '"]').fadeIn(350);
+    
+          e.preventDefault();
+      });
+    
+      //----- CLOSE
+      $('[data-popup-close]').on('click', function(e)  {
+          var targeted_popup_class = jQuery(this).attr('data-popup-close');
+          $('[data-popup="' + targeted_popup_class + '"]').fadeOut(350);
+    
+          e.preventDefault();
+      });
+    });
+</script>
+<script>
+  jQuery(document).ready(function(){
+  	colorSwatch('.color-swatch');
+    
+    jQuery('#notify-me').click(function() {
+      if ($("customer_notify").val() == '0'){
+        jQuery('#sold-out form').submit();
+      }
+      else {
+        jQuery('#notify-me-wrapper').fadeIn();
+      }
+      return false;
+    } );
+  });
+    
+
+  	// color swatch
+  function colorSwatch(link) {
+    var link = link + ' a';
+    $(document).on('click', link, function(e) {
+      var $el = $(this);
+      if($el.data('image')){
+        var $image = $el.closest('.product-item-inside').find('img.featured-image');
+
+        imgSrc = $el.data('image');
+        
+        $el.closest('ul.color-swatch').find('li').removeClass('active');
+        $el.parent('li').addClass('active');
+        
+        var newImg = document.createElement("img");
+        newImg.src = $el.data('image');
+        newImg.onload = function () {
+          $image.attr('src', $el.data('image'))
+        }
+      }
+      e.preventDefault();
+    })
+  }
+</script>
+

@@ -1,0 +1,748 @@
+<!doctype html>
+<!--[if IE 8]>
+<html class="no-js lt-ie9" lang="en">
+    <![endif]-->
+    <!--[if IE 9 ]>
+    <html class="ie9 no-js">
+        <![endif]-->
+        <!--[if (gt IE 9)|!(IE)]><!-->
+        <html class="no-js">
+            <!--<![endif]-->
+            <head>
+                <meta name="p:domain_verify" content="f52bd0dcef427550f6bdf2393b5693a1"/>
+                <!-- Basic page needs ================================================== -->
+                <meta charset="utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+                {% if settings.favicon_enable %}
+                <link rel="shortcut icon" href="{{ 'favicon.png' | asset_url }}" type="image/png" />
+                {% endif %}
+                <link href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css" rel="stylesheet" type="text/css">
+                <style type="text/css">
+                    #mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; }
+                    /* Add your own MailChimp form style overrides in your site stylesheet or in this style block.
+                    We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+                </style>
+                <!-- Title and description ================================================== -->
+                <title>{{ page_title }}{% if current_tags %}{% assign meta_tags = current_tags | join: ', ' %} &ndash; {{ 'general.meta.tags' | t: tags: meta_tags }}{% endif %}{% if current_page != 1 %} &ndash; {{ 'general.meta.page' | t: page: current_page }}{% endif %}{% unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}</title>
+                {% if page_description %}
+                <meta name="description" content="{{ page_description | escape }}">
+                {% endif %}
+                <!-- Helpers ================================================== -->
+                {% include 'social-meta-tags' %}
+                <link rel="canonical" href="{{ canonical_url }}">
+                <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+                <meta name="google-site-verification" content="RW1rnCBEEsbw96hH8j0XxfwFGFXV-KR0_cRo48YXgWc" />
+                <meta name="theme-color" content="{{ settings.color_primary }}">
+                {% if template == 'product' %}
+                <!-- Latest compiled and minified CSS -->
+                <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+                {% endif %}
+                <!-- Optional theme -->
+                <!-- CSS ================================================== -->
+                {{ 'timber.scss.css' | asset_url | stylesheet_tag }}
+                {{ 'jquery.fancybox.css' | asset_url | stylesheet_tag }}
+                {{'flexslider.css' | asset_url | stylesheet_tag}}
+                {{'smk-accordion.css' | asset_url | stylesheet_tag}}
+                {{'hup.css'  | asset_url | stylesheet_tag }}
+                {{'font-awesome.min.css'  | asset_url | stylesheet_tag }}
+                {{'font-awesome.css'  | asset_url | stylesheet_tag }}
+                {{'shop.scss.css'  | asset_url | stylesheet_tag }}
+                {{'owl.carousel.css'  | asset_url | stylesheet_tag }}
+                {{'font.css'  | asset_url | stylesheet_tag }}
+              	{{'bootstrap.min.css'  | asset_url | stylesheet_tag }}
+              
+                <!-- Font-Awesome ================================================== -->
+                <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+                <style media="screen">
+                    .drawer--left {
+                    /*width: 100%;
+                    left: -300px;
+                    border-right: 1px solid #e9e9e9;*/
+                    }
+                </style>
+                <link href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css" rel="stylesheet" type="text/css">
+                <style type="text/css">
+                    #mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; }
+                    /* Add your own MailChimp form style overrides in your site stylesheet or in this style block.
+                    We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+                </style>
+                <!-- Header hook for plugins ================================================== -->
+                {{ content_for_header }}
+                {% include 'oldIE-js' %}
+                {{ '//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js' | script_tag }}
+                {{ 'bootstrap.min.js'         | asset_url | script_tag }}
+                {{ 'modernizr.min.js' | asset_url | script_tag }}
+                {{'flexslider.js'  | asset_url | script_tag }}
+                {{ 'jquery.fancybox.js' | asset_url | script_tag }}
+                {{'jquery.elevatezoom.js' | asset_url | script_tag }}
+                {{'owl.carousel.min.js' | asset_url | script_tag }}
+                {{'load-more.js' | asset_url | script_tag }}
+                <!-- Latest compiled and minified JavaScript -->
+                {% if template == 'product' %}
+                <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>-->
+                {%  endif  %}
+                {% comment %}
+                If you store has customer accounts disabled, you can remove the following JS file
+                {% endcomment %}
+                {% if template contains 'customers' %}
+                {{ 'shopify_common.js' | shopify_asset_url | script_tag }}
+                {% endif %}
+                {% comment %}
+                {% include 'sca-quick-view-init' %}
+                {% endcomment %}
+                <!-- Hotjar Tracking Code for www.touchdolls.com -->
+                <script>
+                    (function(h,o,t,j,a,r){
+                      h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+                      h._hjSettings={hjid:335650,hjsv:5};
+                      a=o.getElementsByTagName('head')[0];
+                      r=o.createElement('script');r.async=1;
+                      r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+                      a.appendChild(r);
+                    })(window,document,'//static.hotjar.com/c/hotjar-','.js?sv=');
+                </script>
+                <!-- Slider ================================================== -->
+                <!-- bxSlider Javascript file -->
+                {{ 'jquery.bxslider.js'     | asset_url | script_tag }}
+                <!-- bxSlider CSS file -->
+                {{ 'jquery.bxslider.css'         | asset_url | stylesheet_tag }}
+              
+                
+                <!-- MailMunch for touchdolls -->
+                <!-- Paste this code right before the </head> tag on every page of your site. -->
+                <script src="//a.mailmunch.co/app/v1/site.js" id="mailmunch-script" data-mailmunch-site-id="354486" async="async"></script>
+                {% include 'nosto-script' with 'shopify-10639730' %}
+            </head>
+            {% comment %}
+            Add the page template as a class for easy page or template specific styling.
+            {% endcomment %}
+            <body id="{{ page_title | handle }}" class="{% if customer %}customer-logged-in {% endif %}template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}" >
+                <div id="NavDrawer" class="drawer drawer--left">
+                    <div class="mobile-nav-logo">
+                      <a href="/" itemprop="url" class="site-header__logo-link">
+                        <img class="logo-td" src="{{'Logo-mobile.svg' | asset_url}}" alt="" itemprop="td-logo">
+                      </a>
+                    </div>
+                    <!-- begin mobile-nav -->
+                    <div class="mobile-menu">
+                      <ul class="site-nav" id="AccessibleNav">
+                        <li class="sub_menu"><a href="https://www.touchdolls.com/collections/dress">Dresses</a>
+                          <ul class="sub_menu_dress">
+                            <li><a href="https://www.touchdolls.com/collections/casual-dress">Casual Dress</a></li>
+                            <li><a href="https://www.touchdolls.com/collections/gala-dress">Gala Dress</a></li>
+                            <li><a href="https://www.touchdolls.com/collections/maxi-dress">Maxi Dress</a></li>
+                            <li><a href="https://www.touchdolls.com/collections/midi-dress">Midi Dress</a></li>
+                            <li><a href="https://www.touchdolls.com/collections/mini-dress">Mini Dresses</a></li>
+                            <li><a href="https://www.touchdolls.com/collections/sweater-dress">Sweater Dress</a></li>
+                            <li><a href="https://www.touchdolls.com/collections/clearance">Clearance</a></li>
+                          </ul>
+                        </li>
+                        <li><a href="https://www.touchdolls.com/collections/touch-swimwear">Swimwear</a></li>
+                        <li><a href="https://www.touchdolls.com/collections/shoes">Shoes</a></li>
+                        <li><a href="https://www.touchdolls.com/collections/accessories">Accessories</a></li>
+                        <li><a href="https://www.touchdolls.com/collections/deliano">Deliano Exclusives</a></li>
+                        <li><a href="https://www.touchdolls.com/pages/instashop">Instashop</a></li>
+                        <li><a href="https://www.touchdolls.com/pages/contact-us">Get In Touch</a></li>
+                      </ul>
+                    </div>
+                    <!-- //mobile-nav -->
+                </div>
+                <!-- MM Over---------------------------------------------------------------------- -->
+                {% if settings.ajax_cart_method == "drawer" %}
+                <div id="CartDrawer" class="drawer drawer--right">
+                    <div class="drawer__header">
+                        <div class="drawer__title h3">{{ 'cart.general.title' | t }}</div>
+                        <div class="drawer__close js-drawer-close">
+                            <button type="button" class="icon-fallback-text"> <span class="icon icon-x" aria-hidden="true"></span> <span class="fallback-text">{{ 'cart.general.close_cart' | t | json }}</span> </button>
+                        </div>
+                    </div>
+                    <div id="CartContainer"></div>
+                </div>
+                {% endif %}
+
+                <div class="special-sale" style="background: {{settings.shippingbarback}} none repeat scroll 0 0;">
+                  <p class="shop-on" style="letter-spacing: 1px; padding-top: 7px; margin-bottom: 7px; font-weight: bold; padding-left: 5%; font-size: 11.2px; color: {{settings.shippingtextcolor}};  font-family: 'Neuzeit S LT W01 Book Heavy', Arial, Helvetica, sans-serif!important;">{{settings.shippingbar}}
+                </div>
+              
+                <div class="content-top">
+                  <div class="content-top-inner">
+                    <div class="content-logo">
+                      <img src="{{ 'td-word.jpg' | asset_url }}" alt="{{ shop.name }}" itemprop="logo">
+                    </div>
+
+                    <div class="site-nav--mobile">
+                      <a class="min-menu"><button type="button" class="icon-fallback-text site-nav__link js-drawer-open-left" aria-controls="NavDrawer" aria-expanded="false"> <span class="icon icon-hamburger" aria-hidden="true"></span> <span class="fallback-text hiren-shop"></span> </button></a>
+                    </div>
+
+                    <div class="search-user">
+                      <ul>
+                        <li>
+                          <span class="hup_acc">
+                            <i class="icon icon-search search-icon" data-toggle="modal" data-target="#myModal" aria-hidden="true"></i>
+                          </span>
+                        </li>
+                        <li>
+                          <a href="/account/" class="hup_acc">
+                            <i class="fa fa-user" aria-hidden="true"></i>
+                          </a>
+                        </li>
+                        <li style="width: 20px; height: 40px;">
+                          <a class="header-cart-btn cart-toggle hup_cart_small" href="#">
+                            <i class="icon icon-cart"></i>
+                          </a>
+                        </li>
+                        <li class="cart-count" style="vertical-align: top;">
+                          {{cart.item_count}}
+                        </li>
+                        <input class="cart-value-count" type="hidden" value="{{cart.item_count}}">
+                      </ul>
+                    </div>
+          		  </div>
+                </div>
+              
+                <div id="PageContainer" class="is-moved-by-drawer hup_nav">
+                  <div class="content-bottom">
+                    <div id="wrapper-left-navigation" class="grid__item large--one-half nav_bar_big">
+                        <header class="site-header">
+                            <div class="wrapper">
+                                <div class="grid--full grid--table">
+                                    {% comment %}
+                                    Use the uploaded logo from theme settings if enabled.
+                                    Site name gets precedence with H1 tag on homepage, div on other pages.
+                                    {% endcomment %}
+                                    <h1 id="logohupsite" class="site-header__logo logo_1" itemscope itemtype="http://schema.org/Organization">
+                                        {% if settings.logo_use_image %}
+                                        <a href="/" itemprop="url" class="site-header__logo-link">
+                                        	<img class="logo-td" src="{{'Logo.svg' | asset_url}}" alt="" itemprop="td-logo">
+										</a>
+                                        {% else %}
+                                        <a href="/" itemprop="url">{{ shop.name }}</a>
+                                        {% endif %}
+                                    </h1>
+                                  
+                                   <nav class="nav-bar site-nav" role="navigation">
+                                    <div class="medium-down--hide mm-pic">
+                                      <ul class="site-nav" id="AccessibleNav">
+                                        <li class="sub_menu"><a href="https://www.touchdolls.com/collections/dress">Dresses</a>
+                                          <ul class="sub_menu_dress">
+                                            <li><a href="https://www.touchdolls.com/collections/casual-dress">Casual Dress</a></li>
+                                            <li><a href="https://www.touchdolls.com/collections/gala-dress">Gala Dress</a></li>
+                                            <li><a href="https://www.touchdolls.com/collections/maxi-dress">Maxi Dress</a></li>
+                                            <li><a href="https://www.touchdolls.com/collections/midi-dress">Midi Dress</a></li>
+                                            <li><a href="https://www.touchdolls.com/collections/mini-dress">Mini Dresses</a></li>
+                                            <li><a href="https://www.touchdolls.com/collections/sweater-dress">Sweater Dress</a></li>
+                                            <li><a href="https://www.touchdolls.com/collections/clearance">Clearance</a></li>
+                                          </ul>
+                                        </li>
+                                        <li><a href="https://www.touchdolls.com/collections/touch-swimwear">Swimwear</a></li>
+                                        <li><a href="https://www.touchdolls.com/collections/shoes">Shoes</a></li>
+                                        <li><a href="https://www.touchdolls.com/collections/accessories">Accessories</a></li>
+                                        <li><a href="https://www.touchdolls.com/collections/deliano">Deliano Exclusives</a></li>
+                                        <li><a href="https://www.touchdolls.com/pages/instashop">Instashop</a></li>
+                                        <li><a href="https://www.touchdolls.com/pages/contact-us">Get In Touch</a></li>
+                                      </ul>
+                                    </div>
+                                  </nav>
+                                  	
+
+                                  
+                                </div>
+                                <div class="large--hide medium-down--show mm-icon">
+                                    <div class="site-nav--mobile">
+                                        <form action="/search" method="get" class="input-group search-bar" role="search">
+                                            {% comment %}<input type="hidden" name="type" value="product">{% endcomment %}
+                                            <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'general.search.placeholder' | t }}" class="input-group-field search_mob_input" aria-label="{{ 'general.search.placeholder' | t }}">
+                                        </form>
+                                        <a><button type="button" class="icon-fallback-text site-nav__link js-drawer-open-left" aria-controls="NavDrawer" aria-expanded="false"> <span class="icon icon-hamburger" aria-hidden="true"></span> <span class="fallback-text hiren-shop"></span> </button></a>
+                                        <a id="search_mob_toggle" class="search-toggle" href="/search"> <i class="icon icon-search" aria-hidden="true"></i> </a>
+                                        <a href="/account/login" class="hup_acc"> <i class="fa fa-user" aria-hidden="true"> </i></a>
+                                        <a class="header-cart-btn cart-toggle hup_cart_small" href="/cart">
+                                        <span class="icon icon-cart"></span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </header>
+                    </div>
+                  
+                    <div id="wrapper-right">
+                      <main class="main-content" role="main"> {{ content_for_layout }} </main>
+                    </div>
+                    
+                    <div class="clear-fix"></div>
+                    
+                    <footer>
+<!--                        <ul class="value-propositions">
+                        <li>
+                          <div class="proposition-icon-holder"> <img src="https://cdn.shopify.com/s/files/1/1063/9730/files/proposition-img-0.svg?5500506656658768878" alt=""> </div>
+                          <p>FREE DOMESTIC SHIPPING<span>ON ORDERS OVER $75</span></p>
+                        </li>
+                        <li>
+                          <div class="proposition-icon-holder"> <img src="https://cdn.shopify.com/s/files/1/1063/9730/files/proposition-img-1.svg?5500506656658768878" alt=""> </div>
+                          <p>HASSLE FREE EXCHANGES WORLDWIDE<span>ON ALL ORDERS</span></p>
+                        </li>
+                        <li>
+                          <div class="proposition-icon-holder"> <img src="https://cdn.shopify.com/s/files/1/1063/9730/files/proposition-img-2.svg?5500506656658768878" alt=""> </div>
+                          <p>AWARD WINNING <span>CUSTOMER SERVICE</span></p>
+                        </li>
+                        <li>
+                          <div class="proposition-icon-holder"> <img src="https://cdn.shopify.com/s/files/1/1063/9730/files/proposition-img-3.svg?5500506656658768878" alt=""> </div>
+                          <p>100% safe &amp; secure checkout <span>worry-free-purchases</span></p>
+                        </li>
+                      </ul> -->
+
+<!--                         <div class="footer-main-content">
+                        <section class="company-info">
+                          <a href="/" class="footer-logo"> <img src="{{'footerlogo.png' | asset_url}}" alt="Touch dolls footer"> </a>
+                          <ul class="contact-items">
+                            <li> <a href="mailto:{{settings.emailtextfooter}}">{{settings.emailtextfooter}}</a> </li>
+                            <li> Call Customer Support <br>
+                              <a href="tel:{{settings.callfooter}}">{{settings.callfooter}}</a> 
+                            </li>
+                          </ul>
+                          <ul class="social-icons">
+                            <li> <a href="{{settings.facebooklink}}" target="_blank"><i class="fa fa-facebook"></i></a> </li>
+                            <li> <a href="{{settings.twitterlink}}" target="_blank"><i class="fa fa-twitter"></i></a> </li>
+                            <li> <a href="{{settings.instagramlink}}" target="_blank"><i class="fa fa-instagram"></i></a> </li>
+                            <li> <a href="{{settings.youtubelink}}" target="_blank"><i class="fa fa-youtube-play"></i></a> </li>
+                            <li class="snap-chat"> <a href="{{settings.snapchatlink}}" target="_blank"></a></li>
+                          </ul>
+                        </section>
+                        <section class="footer-navigation">
+                          <div class="desktop-footer-links">
+                            <ul>
+                              <li>{{settings.headtext1}}</li>
+                              {% for link in linklists[settings.footerlink1].links %}
+                              <li> <a href="{{link.url}}">{{link.title}}</a> </li>
+                              {% endfor %}
+                            </ul>
+                            <ul>
+                              <li>{{settings.headtext2}}</li>
+                              {% for link in linklists[settings.footerlink2].links %}
+                              <li> <a href="{{link.url}}">{{link.title}}</a> </li>
+                              {% endfor %}
+                            </ul>
+                            <ul>
+                              <li>{{settings.headtext3}}</li>
+                              {% for link in linklists[settings.footerlink3].links %}
+                              <li> <a href="{{link.url}}">{{link.title}}</a> </li>
+                              {% endfor %}
+                            </ul>
+                          </div>
+                          
+                          <div class="mobile-footer-links">
+                            <div class="accordion-snippet accordion_example1 smk_accordion acc_with_icon" >
+                              <div class="accordion_in accordion-title">
+                                <div class="acc_head">{{settings.headtext1}}</div>
+                                <div class="acc_content">
+                                  <ul>
+                                    {% for link in linklists[settings.footerlink1].links %}
+                                    <li> <a href="{{link.url}}">{{link.title}}</a> </li>
+                                    {% endfor %}
+                                  </ul>
+                                </div>
+                              </div>
+                              <div class="accordion_in accordion-title">
+                                <div class="acc_head">{{settings.headtext2}}</div>
+                                <div class="acc_content">
+                                  <ul>
+                                    {% for link in linklists[settings.footerlink2].links %}
+                                    <li> <a href="{{link.url}}">{{link.title}}</a> </li>
+                                    {% endfor %}
+                                  </ul>
+                                </div>
+                              </div>
+                              <div class="accordion_in accordion-title">
+                                <div class="acc_head">{{settings.headtext3}}</div>
+                                <div class="acc_content">
+                                  <ul>
+                                    {% for link in linklists[settings.footerlink3].links %}
+                                    <li> <a href="{{link.url}}">{{link.title}}</a> </li>
+                                    {% endfor %}
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </section>
+                        <section class="footer-signup" style="padding: 56px 10px 0 0;">
+                          <div id="mc_embed_signup">
+                            <form action="//touchdolls.us8.list-manage.com/subscribe/post?u=134f7626938ba842f8130c282&amp;id=4f21e56821" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+                              <div id="mc_embed_signup_scroll">
+                                <h2>SIGN UP FOR NEWSLETTER</h2>
+                                
+                                <div class="mc-field-group">
+                                  <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL">
+                                </div>
+                                <div id="mce-responses" class="clear">
+                                  <div class="response" id="mce-error-response" style="display:none"></div>
+                                  <div class="response" id="mce-success-response" style="display:none"></div>
+                                </div>
+                                
+                                <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_134f7626938ba842f8130c282_4f21e56821" tabindex="-1" value=""></div>
+                                <div class="clear" style="visibility: initial;"><input type="submit" value="SIGN UP" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+                              </div>
+                            </form>
+                          </div>
+                        </section>
+                        <div class="mobile-footer-social">
+                          <ul class="social-icons">
+                            <li> <a href="{{settings.facebooklink}}" target="_blank"><i class="fa fa-facebook"></i></a> </li>
+                            <li> <a href="{{settings.twitterlink}}" target="_blank"><i class="fa fa-twitter"></i></a> </li>
+                            <li> <a href="{{settings.instagramlink}}" target="_blank"><i class="fa fa-instagram"></i></a> </li>
+                            <li> <a href="{{settings.youtubelink}}" target="_blank"><i class="fa fa-youtube-play"></i></a> </li>
+                            <li class="snap-chat"> <a href="{{settings.snapchatlink}}" target="_blank"></a></li>
+                          </ul>
+                        </div>
+                      </div> -->
+                      
+                      
+                     <div class="footer-menu"> 
+                       
+                       <section class="footer-signup">
+                        <div id="mc_embed_signup">
+                          <form action="//touchdolls.us8.list-manage.com/subscribe/post?u=134f7626938ba842f8130c282&amp;id=4f21e56821" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+                            <div id="mc_embed_signup_scroll">
+
+
+                              <div class="mc-field-group">
+                                <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="subscribe to our mailing list">
+                                <img class="subscribe-img" src="{{'form_submit.svg' | asset_url}}">
+                              </div>
+                              <div id="mce-responses" class="clear">
+                                <div class="response" id="mce-error-response" style="display:none"></div>
+                                <div class="response" id="mce-success-response" style="display:none"></div>
+                              </div>
+
+                              <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_134f7626938ba842f8130c282_4f21e56821" tabindex="-1" value=""></div>
+                               <div class="clear" style="visibility: initial;"><input type="submit" value="SIGN UP" style=" display: none;" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+                            </div>
+                          </form>
+                        </div>
+                      </section>
+                       
+                       <div class="footer-menu-1">
+                         <ul>
+                           <li><a href="/pages/contact-us">GET IN TOUCH</a></li>
+                           <li><a href="/pages/shipping">SHIPPING INFO</a></li>
+                           <li><a href="/pages/return-policy">RETURNS & EXCHANGES</a></li>
+                           <li><a href="/pages/private-policy">PRIVACY POLICY</a></li>
+                           <li><a href="/pages/faqs">FAQ'S</a></li>
+                         </ul>
+                       </div>
+
+                       <div class="footer-menu-2">
+                         <ul>
+                           <li><a href="{{settings.facebooklink}}" target="_blank">FACEBOOK</a></li>
+                           <li><a href="{{settings.twitterlink}}" target="_blank">TWITTER</a></li>
+                           <li><a href="{{settings.instagramlink}}" target="_blank">INSTAGRAM</a></li>
+                           <li><a href="{{settings.youtubelink}}" target="_blank">YOUTUBE</a></li>
+                           <li><a href="{{settings.snapchatlink}}" target="_blank">SNAP-CHAT</a></li>
+                         </ul>   
+                       </div>
+                      </div>
+
+                       <div class="c-right text-center">
+                         <span class="copy__right">All Rights Reserved. © 2017 TouchDolls.</span>
+                      </div>
+                    </footer>
+                  </div>
+                  
+                 </div>
+                                <div class="container">
+                    <!-- Modal -->
+                    <div class="modal fade" id="myModal" role="dialog">
+                      <div class="modal-dialog">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                          
+                          <div class="modal-body">
+                            <div id="searchbarhup" class="search-form">
+                              <form action="/search" method="get" class="input-group search-bar" role="search">
+                                {% comment %}<input type="hidden" name="type" value="product">{% endcomment %}
+                                <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'general.search.placeholder' | t }}" class="input-group-field search_input" aria-label="{{ 'general.search.placeholder' | t }}">
+                                <span class="input-group-btn" id="search_btn">
+                                  <span class="icon icon-search modal-search" aria-hidden="true"></span>
+                                </span>
+                              </form>
+                            </div>
+                          </div>
+						</div>
+                      </div>
+                    </div>
+                  </div>
+
+                
+                {{'hup.js'  | asset_url | script_tag }}
+                {{ 'fastclick.min.js' | asset_url | script_tag }}
+                {{ 'timber.js' | asset_url | script_tag }}
+                
+                {% comment %}
+                Template-specific js
+                {% endcomment %}
+                <script>
+                    {% if resetPassword %}
+                    $(function() {
+                      timber.resetPasswordSuccess();
+                    });
+                    {% endif %}
+                </script>
+                {% comment %}
+                Ajaxify your cart with this plugin.
+                Documentation:
+                - http://shopify.com/timber#ajax-cart
+                {% endcomment %}
+                {% if settings.ajax_cart_method == "drawer" %}
+                {{ 'handlebars.min.js' | asset_url | script_tag }}
+                {% include 'ajax-cart-template' %}
+                {{ 'ajax-cart.js' | asset_url | script_tag }}
+                {{ 'smk-accordion.js' | asset_url | script_tag }}
+                <script>
+                    $( document ).ready(function() {
+                   	  $(".accordion_example1").smk_Accordion({
+                    	closeAble: true, //boolean
+                      });
+                    });
+                    
+                    
+                    jQuery(function($) {
+                      ajaxCart.init({
+                        formSelector: '#AddToCartForm',
+                        cartContainer: '#CartContainer',
+                        addToCartSelector: '#AddToCart',
+                        cartCountSelector: '.cart-count',
+                        cartCostSelector: '#CartCost',
+                        moneyFormat: {{ shop.money_format | json }}
+                      });
+                      });
+                    
+                      jQuery(document.body).on('afterCartLoad.ajaxCart', function(evt, cart) {
+                        // Bind to 'afterCartLoad.ajaxCart' to run any javascript after the cart has loaded in the DOM
+                        timber.RightDrawer.open();
+                      });
+                </script>
+                {% endif %}
+                {% include 'currencies' %}
+                {% comment %}
+                {% include 'sca-quick-view-template' %}
+                {% endcomment %}
+                <script>
+                    jQuery(function() {
+                      jQuery('.swatch :radio').change(function() {
+                        var optionIndex = jQuery(this).closest('.swatch').attr('data-option-index');
+                        var optionValue = jQuery(this).val();
+                        jQuery(this)
+                        .closest('form')
+                        .find('.single-option-selector')
+                        .eq(optionIndex)
+                        .val(optionValue)
+                        .trigger('change');
+                      });
+                    });
+                </script>
+                {% include 'search-autocomplete' %}
+                <!-- Go to www.addthis.com/dashboard to customize your tools --> <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-58164600d3583034"></script>
+                <script type='text/javascript'>
+                    window.__lo_site_id = 60470;
+                    
+                    (function() {
+                      var wa = document.createElement('script'); wa.type = 'text/javascript'; wa.async = true;
+                      wa.src = 'https://d10lpsik1i8c69.cloudfront.net/w.js';
+                      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(wa, s);
+                    })();
+                    
+                </script>
+                <!--------------------------- Refine Accordion ------------------------>
+                <script>
+                    var acc = document.getElementsByClassName("accordion");
+                    var i;
+                    
+                    for (i = 0; i < acc.length; i++) {
+                      acc[i].onclick = function(){
+                        this.classList.toggle("active");
+                        this.nextElementSibling.classList.toggle("show");
+                      }
+                    }
+                </script>
+                <!------- Sticky Header    -->
+                <script>
+                    $(window).scroll(function() {
+                    
+                      if ($(this).scrollTop() > 0){
+                        $('header.site-header').addClass("sticky");
+                        $('.logo_1').addClass("logo_none");
+                        $('.logo_2').removeClass("logo_none");
+                      }
+                      else{
+                        $('header.site-header').removeClass("sticky");
+                        $('.logo_1').removeClass("logo_none");
+                        $('.logo_2').addClass("logo_none");
+                      }
+                    
+                    
+                    });
+                    
+                    $('#search_btn').click(function(event){
+                      event.preventDefault();
+                      $(this).hide();
+                      $('.search_input').css('visibility', 'visible');
+                    });
+                    
+                    $(".search_input").keypress(function(event) {
+                      if (event.which == 13) {
+                        $("#searchbarhup form.search-bar").submit();
+                      }
+                    });
+                    
+                    
+                    
+                    $('#search_mob_toggle').click(function(event){
+                      event.preventDefault();
+                      $('.search_mob_input').css('display', 'block');
+                    });
+                </script>
+                <script>
+                    $(document).ready(function(){
+                      $("#owl-demo").owlCarousel({
+                        nav : true, // Show next and prev buttons
+                        slideSpeed : 300,
+                        paginationSpeed : 400,
+                        singleItem:true,
+                        items : 1
+                      });
+                    });
+                    
+                    $(document).ready(function () {
+                      if (typeof attachClickEvent === "function") { 
+                        attachClickEvent();
+                      }
+                    });
+                    
+                </script>
+                <style>
+                    {% if template == 'index' %}
+                    header.site-header i.fa.fa-user, header.site-header span.icon.icon-cart, header.site-header #AccessibleNav a  {
+                    color: {{ settings.nav_clr }};
+                    }
+                    @media screen and (max-width: 992px){
+                    .site-header__logo {
+                    display: block;
+                    float: none;
+                    left: 0;
+                    right: unset !important;
+                    position: absolute;
+                    text-align: center;
+                    width: 390px !important;
+                    }
+                    }
+                    {% else %}
+                    header.site-header i.fa.fa-user, header.site-header span.icon.icon-cart, header.site-header #AccessibleNav a  {
+                    color: #fff;
+                    }
+                    .site-header{ background: #000 ; }
+                    {% endif %}
+                </style>
+                {% include 'sweettooth-initializer' %}
+                {% include 'sweettooth-tab-widget' %}
+                <script type="text/javascript" src="//analytics.aweber.com/js/awt_analytics.js?id=1ypzE"></script>
+                <script type="text/javascript">
+                    var _user_id = 'tdcustomer'; // Set to the user's ID, username, or email address, or '' if not yet known.
+                    var _session_id = 'tdsession'; // Set to a unique session ID for the visitor's current browsing session.
+                    
+                    var _sift = window._sift = window._sift || [];
+                    _sift.push(['_setAccount', '1399a8a586']);
+                    //     _sift.push(['_setUserId', tdcustomer]);
+                    //     _sift.push(['_setSessionId', tdsession]);
+                    _sift.push(['_trackPageview']);
+                    
+                    (function() {
+                      function ls() {
+                        var e = document.createElement('script');
+                        e.src = 'https://cdn.siftscience.com/s.js';
+                        document.body.appendChild(e);
+                      }
+                      if (window.attachEvent) {
+                        window.attachEvent('onload', ls);
+                      } else {
+                        window.addEventListener('load', ls, false);
+                      }
+                    })();
+                </script>
+                <script>
+                    $(document).ready(function(){
+                      var bx_slider = null;
+                    
+                      window.bx_slider = $('#product-images-slider').bxSlider({
+                        pagerCustom: '.product-carousel-wrapper'
+                      });
+                    
+                      if ($(window).width() <= 768) {
+                    
+                        $(".product-wrapper-desktop").hide();
+                        $(".product-wrapper-mobile").show();
+                      } else {
+                        $(".product-wrapper-desktop").show();
+                        $(".product-wrapper-mobile").hide();
+                      }
+                      
+                      $(window).resize(function(){
+                        if ($(window).width() <= 768) {
+                          $(".product-wrapper-desktop").hide();
+                          $(".product-wrapper-mobile").show();
+                          
+                          $('#product-images-slider').bxSlider({
+                            pagerCustom: '.product-carousel-wrapper'
+                          });
+                          
+                        } else {
+                          
+                          window.bx_slider.destroySlider();
+                          $(".product-wrapper-desktop").show();
+                          $(".product-wrapper-mobile").hide();
+                        }
+                      });
+                      
+                      
+                      $('.most_wanted').flexslider({
+                        animation: "slide",
+                        slideshow: true,
+                        animationLoop: false,
+                        itemWidth: 210,
+                        itemMargin:12,
+                        controlNav: false,
+                        directionNav:true,
+                        minItems: 2,
+                        maxItems: 4 
+                      });
+                    });
+                </script>
+                <script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script><script type='text/javascript'>(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email';}(jQuery));var $mcj = jQuery.noConflict(true);</script>
+                <!--End mc_embed_signup-->
+                <script src="https://cdn.jsdelivr.net/jquery.validation/1.15.0/jquery.validate.min.js"></script>
+                <!-- <script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script><script type='text/javascript'>(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email';}(jQuery));var $mcj = jQuery.noConflict(true);</script> -->
+                <script>
+                    $('#mc-embedded-subscribe').on('click', function() {
+                    
+                      if ($('#mc-embedded-subscribe-form input').valid() == true) {
+                        setTimeout(function() {
+                          var $html = $("<h2 class='success'>Your Email Added Successfully!</h2>");
+                          $('#mc-embedded-subscribe').after($html);
+                          $('#mce-EMAIL').val('');
+                          $html.fadeOut(3000);
+                        }, 1000);
+                    
+                      } 
+                    });
+                  
+                  $('.subscribe-img').on('click', function() {
+                    $('#mc-embedded-subscribe').trigger('click');
+                  });
+                    
+                </script>
+
+              
+             
+            </body>
+        </html>
+        {% include 'spently-featured-products' %}

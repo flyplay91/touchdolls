@@ -1,0 +1,386 @@
+<script src="https://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
+
+<div class="wrapper">
+    <div class="hup-chart-be">
+        <div class="grid-item">
+            <div class="sz text-center">
+              <a href="{{ product.url | within: collection }}" class="btn-back" id="back-url"><i class="fa fa-backward back" aria-hidden="true">BACK</i></a>
+            </div>
+          	<div class="rte-5 clearfix">
+                <div id="tabs" class="clearfix">
+                  	
+                  	<div class="size-chart-div">
+                      	<h1>{{ page.title }}</h1>
+                        <span class="size-chart-span">BOTTOMS<i class="size-chart-i"></i></span>
+
+                        <ul class="size-chart-select">
+                            <li>
+                                <a href="#a">BOTTOMS</a>
+                            </li>
+                            <li>
+                                <a href="#b">SHORTS</a>
+                            </li>
+                            <li>
+                                <a href="#c">TOPS</a>
+                            </li>
+                            <li>
+                                <a href="#d">DRESSES</a>
+                            </li>
+                        </ul>
+                  	</div>
+                    <div id="a">
+                        <h1>Include Denim & Pants</h1>
+                        <table class="rwd-table">
+                            <tr>
+                                <th>SIZES</th>
+                                <th class="figur">WAIST</th>
+                                <th>HIPS</th>
+                                <th>LENGTH</th>
+                            </tr>
+                            <tr>
+                                <td data-th="Movie Title">1</td>
+                                <td data-th="Genre">25"-25.5"</td>
+                                <td data-th="Year">35"-35.5"</td>
+                                <td data-th="LENGTH">40"</td>
+                            </tr>
+                            <tr>
+                                <td data-th="Movie Title">3</td>
+                                <td data-th="Genre">26"-26.5"</td>
+                                <td data-th="Year">36"-36.5"</td>
+                                <td data-th="LENGTH">41"</td>
+                            </tr>
+                            <tr>
+                                <td data-th="Movie Title">5</td>
+                                <td data-th="Genre">27"-27.5"</td>
+                                <td data-th="Year">37"-37.5"</td>
+                                <td data-th="LENGTH">42"</td>
+                            </tr>
+                            <tr>
+                                <td data-th="Movie Title">7</td>
+                                <td data-th="Genre">28"-28.5"</td>
+                                <td data-th="Year">38"-38.5"</td>
+                                <td data-th="LENGTH">43"</td>
+                            </tr>
+                            <tr>
+                                <td data-th="Movie Title">9</td>
+                                <td data-th="Genre">29"-29.5"</td>
+                                <td data-th="Year">39"-39.5"</td>
+                                <td data-th="LENGTH">44"</td>
+                            </tr>
+                            <tr>
+                                <td data-th="Movie Title">11</td>
+                                <td data-th="Genre">30"-31"</td>
+                                <td data-th="Year">40"-41"</td>
+                                <td data-th="LENGTH">45"</td>
+                            </tr>
+                            <tr>
+                                <td data-th="Movie Title">13</td>
+                                <td data-th="Genre">31.5"-32.5"</td>
+                                <td data-th="Year">41.5"-42.5"</td>
+                                <td data-th="LENGTH">46"</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div id="b">
+                        <h1>Include Denim & Pants</h1>
+                        <table class="rwd-table">
+                            <tr>
+                                <th>SIZES</th>
+                                <th class="figur">WAIST</th>
+                                <th>LENGTH</th>
+                            </tr>
+                            <tr>
+                                <td data-th="Movie Title">SMALL</td>
+                                <td data-th="Genre">25"-26"</td>
+                                <td data-th="LENGTH">40"</td>
+                            </tr>
+                            <tr>
+                                <td data-th="Movie Title">MEDIUM</td>
+                                <td data-th="Genre">27"-28"</td>
+                                <td data-th="LENGTH">41"</td>
+                            </tr>
+                            <tr>
+                                <td data-th="Movie Title">LARGE</td>
+                                <td data-th="Genre">30"-32"</td>
+                                <td data-th="LENGTH">42"</td>
+                            </tr>
+                        </table>
+                        <p>(F) & (B) = FRONT AND BACK-Length measuring from waist down</p>
+                    </div>
+                    <div id="c">
+                        <h1>Include jackets,tees,blouses,bralets and bodytsuites</h1>
+                        <table class="rwd-table">
+                            <tr>
+                                <th>SIZES</th>
+                                <th class="figur">BUST</th>
+                                <th>CUP SIZE</th>
+                            </tr>
+                            <tr>
+                                <td data-th="Movie Title">SMALL</td>
+                                <td data-th="Genre">35.5"</td>
+                                <td data-th="LENGTH">A/B</td>
+                            </tr>
+                            <tr>
+                                <td data-th="Movie Title">MEDIUM</td>
+                                <td data-th="Genre">B/C</td>
+                                <td data-th="LENGTH">41"</td>
+                            </tr>
+                            <tr>
+                                <td data-th="Movie Title">LARGE</td>
+                                <td data-th="Genre">40.5"</td>
+                                <td data-th="LENGTH">D</td>
+                            </tr>
+                            <tr>
+                                <td data-th="Movie Title">X-LARGE</td>
+                                <td data-th="Genre">41.5"</td>
+                                <td data-th="LENGTH">D/DD</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div id="d">
+                        <h1>Includes all dresses and bodysuites</h1>
+                        <table class="rwd-table">
+                            <tr>
+                                <th>SIZES</th>
+                                <th>BUST</th>
+                                <th class="figur">WAIST</th>
+                                <th class="hips_figur">HIPS</th>
+                            </tr>
+                            <tr>
+                                <td data-th="Movie Title">X-SMALL</td>
+                                <td data-th="Genre">35.5"-34"</td>
+                                <td data-th="Genre">26</td>
+                                <td data-th="LENGTH">36.5</td>
+                            </tr>
+                            <tr>
+                                <td data-th="Movie Title">SMALL</td>
+                                <td data-th="Genre">34.5"-35"</td>
+                                <td data-th="Genre">27</td>
+                                <td data-th="LENGTH">37.5</td>
+                            </tr>
+                            <tr>
+                                <td data-th="Movie Title">MEDIUM</td>
+                                <td data-th="Genre">35.5"-36"</td>
+                                <td data-th="Genre">28.5</td>
+                                <td data-th="LENGTH">39</td>
+                            </tr>
+                            <tr>
+                                <td data-th="Movie Title">LARGE</td>
+                                <td data-th="Genre">36.5"-37"</td>
+                                <td data-th="Genre">30</td>
+                                <td data-th="LENGTH">40.5</td>
+                            </tr>
+                            <tr>
+                                <td data-th="Movie Title">X-LARGE</td>
+                                <td data-th="Genre">37.5"-38.5"</td>
+                                <td data-th="Genre">31.5</td>
+                                <td data-th="LENGTH">42</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+              	<div class="measure-div non-popup">
+                  <h2 class="measure"><a data-content="▶" class="measure-a" style="color: black;" href="#">HOW TO MEASURE</a></h2>
+                  <div class="img_size" style="margin-top: 2%; width:72%; margin: 0 auto; float: none;">
+                    {{ 'size-guide.png' | asset_url | img_tag }}
+                  </div>
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .img_size {
+        width: 89%;
+        float: right;
+    }
+    th,
+    td {
+        border: 1px solid #ececec;
+        padding: 5px 15px;
+        text-align: center;
+    }
+    .rte {
+        clear: both;
+        display: inline-block;
+        margin-bottom: 40px;
+    }
+    tr:nth-child(2n) {
+        background: #bababa none repeat scroll 0 0;
+    }
+    table {
+        border-collapse: collapse;
+        border-spacing: 0;
+        min-width: 100%;
+    }
+    .ui-tabs.ui-tabs-vertical {
+        padding: 0;
+        width: 100%;
+    }
+    .ui-tabs.ui-tabs-vertical .ui-widget-header {
+        border: none;
+    }
+    .ui-tabs.ui-tabs-vertical .ui-tabs-nav {
+        float: left;
+        width: 10em;
+        border-radius: 4px 0 0 4px;
+    }
+    .ui-tabs.ui-tabs-vertical .ui-tabs-nav li {
+        border: 1px solid !important;
+        border-radius: 30px 0 0 30px;
+        clear: left;
+        margin: 0.2em 0;
+        overflow: hidden;
+        position: relative;
+        right: -2px;
+        width: 100%;
+        z-index: 2;
+    }
+    .ui-tabs-active .ui-tabs-anchor {
+        color: #fff ;
+    }
+    .ui-tabs.ui-tabs-vertical .ui-tabs-nav li a {
+        color: #000;
+        display: block;
+        padding: 0.6em 1em;
+        width: 100%;
+    }
+    .ui-tabs.ui-tabs-vertical .ui-tabs-nav li a:hover {
+        cursor: pointer;
+    }
+    .ui-tabs.ui-tabs-vertical .ui-tabs-nav li.ui-tabs-active {
+        margin-bottom: 0.2em;
+        padding-bottom: 0;
+        border-right: 1px solid white;
+        background: #000 none repeat scroll 0 0;
+        border-radius: 30px 0 0 30px;
+    }
+    .ui-tabs.ui-tabs-vertical .ui-tabs-nav li:last-child {
+        margin-bottom: 10px;
+    }
+    .ui-tabs.ui-tabs-vertical .ui-tabs-panel {
+        border: 1px solid #000;
+        border-radius: 0;
+        float: left;
+        left: 1px;
+        padding: 15px 5px;
+        position: relative;
+        width: 60em;
+    }
+    .figur {
+        width: 150px;
+    }
+    .hips_figur {
+        width: 150px;
+    }
+    @import "compass/css3";
+    // More practical CSS...
+    // using mobile first method (IE8,7 requires respond.js polyfill https://github.com/scottjehl/Respond)
+    $breakpoint-alpha: 480px; // adjust to your needs
+    .rwd-table {
+        margin: 1em 0;
+        min-width: 300px; // adjust to your needs
+        tr {
+            border-top: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            display: none; // for accessibility, use a visually hidden method here instead! Thanks, reddit!   
+        }
+        td {
+            display: block;
+            &:first-child {
+                padding-top: .5em;
+            }
+            &:last-child {
+                padding-bottom: .5em;
+            }
+            &:before {
+                content: attr(data-th)": "; // who knew you could do this? The internet, that's who.
+                font-weight: bold;
+                // optional stuff to make it look nicer
+                width: 6.5em; // magic number :( adjust according to your own content
+                display: inline-block;
+                // end options
+                @media (min-width: $breakpoint-alpha) {
+                    display: none;
+                }
+            }
+        }
+        th,
+        td {
+            text-align: left;
+            @media (min-width: $breakpoint-alpha) {
+                display: table-cell;
+                padding: .25em .5em;
+                &:first-child {
+                    padding-left: 0;
+                }
+                &:last-child {
+                    padding-right: 0;
+                }
+            }
+        }
+    }
+    // presentational styling
+    @import 'http://fonts.googleapis.com/css?family=Montserrat:300,400,700';
+    body {
+        padding: 0 2em;
+        font-family: Montserrat, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+        color: #444;
+        background: #eee;
+    }
+    h1 {
+        font-weight: normal;
+        letter-spacing: -1px;
+        color: #34495E;
+    }
+    .rwd-table {
+        background: #34495E;
+        color: #fff;
+        border-radius: .4em;
+        overflow: hidden;
+        tr {
+            border-color: lighten(#34495E, 10%);
+        }
+        th,
+        td {
+            margin: .5em 1em;
+            @media (min-width: $breakpoint-alpha) {
+                padding: 1em !important;
+            }
+        }
+        th,
+        td:before {
+            color: #dd5;
+        }
+    }
+  
+</style>
+
+<script>
+    $(document).ready(function() {
+      
+      $('#tabs').tabs().addClass('ui-tabs-vertical ui-helper-clearfix');
+      	var searchIndex = location.href.indexOf("back_url=");
+      	if (searchIndex != -1) {
+        	$('#back-url').attr('href', location.href.substr(searchIndex + 9));
+      	}
+          
+      	$('.size-chart-span').on('click', function() {
+        	$('ul.size-chart-select.ui-tabs-nav.ui-helper-reset.ui-helper-clearfix.ui-widget-header.ui-corner-all').toggle();
+      	});
+      
+      	$('ul.size-chart-select.ui-tabs-nav.ui-helper-reset.ui-helper-clearfix.ui-widget-header.ui-corner-all li').on('click', function() {
+            if ($(window).width() < 415) {
+              	$('ul.size-chart-select.ui-tabs-nav.ui-helper-reset.ui-helper-clearfix.ui-widget-header.ui-corner-all').hide(300);
+            }
+        	
+      	});
+    
+    });
+    
+</script>
